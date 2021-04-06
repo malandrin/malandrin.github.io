@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/styles.css" media="screen">
+        <title>Biko</title>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-42693157-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <img src="images/biko-small.jpg" class="shot" title="Biko"/>
+                <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px;"><span class="back-link-root">main</span></a>:<span class="back-link-actual">biko</span>
+                <br>
+                <br>
+                <h1>OVERVIEW</h1>
+                <div class="bottomline" />
+                <br>
+                <p><b>Biko</b> is a set of two games to teach students of different ages how to drive a vehicle on the road. These games were created in 2 months by a 1+1 team (one programmer and one artist) using unity, and the target platform was an iPad 1.</p>
+                <br>
+                <p>The first game teaches students from 14 to 16 years the traffic signals and rules to drive a motorbike through the city. The second game teaches young students from 10 to 12 years how to ride a bike safely through the city.</p>
+                <a href="images/bikobici1.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/bikobici1.jpg" class="capture" title="Bike Simulator"/></a>
+                <h1>TRAFFIC SYSTEM AND TRAFFIC SIGNALS</h1>
+                <div class="bottomline" />
+                <br>
+                <p>This game has a simple traffic system. Streets paths are defined as beziers curves. The vehicles check constantly if exist any obstacles in front of it. If the obstacle is far, the vehicle decreases its speed. When the obstacle is very close, the vehicle will stop. A curve point could have connections with other paths and some extra information. For example, in the image below:</p>
+                <a href="images/bikoeditor.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/bikoeditor.jpg" class="capture" title="Traffic Editor"/></a>
+                <p>In the point surrounded by a blue circle, the vehicle can choose to follow the left way (curve in red) or the right way (in white). The conditions to choose one or other are:</p>
+                <br>
+                <li>The vehicle can go in that way. In some ways, trucks are forbidden.</li>
+                <li>Way occupancy. If one way is saturated with vehicles, the vehicle selects the other way.</li>
+                <li>Random probability. One way can have more probability to be used than others.</li>
+                <br>
+                <p>Green volumes (marked as 1 and 2) define a stop signal. When a vehicle enters volume 1, it stops completely and it will be stopped while there are other vehicles in volume 2. The rest of the signals works in the same way. On volume define the signal zone, and any number of volumes define "listeners" zones to check if there is something inside (others vehicles or pedestrians).</p>
+                <div class="line"/>
+                <br>
+                <div>
+                    <a href="javascript:javascript:history.go(-1)" class="aimg"><img src="images/back.jpg" style="vertical-align: middle;"/></a>
+                    <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px dotted;"><span style="vertical-align: middle;">Back to main page.</span></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

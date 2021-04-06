@@ -1,0 +1,94 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td { margin:0; padding:0; border:0; outline:0; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; vertical-align:baseline; text-decoration: none; }
+:focus { outline:0; }
+body { background: #fff; line-height:1; color:black; background:white; }
+
+.container {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.line {
+	margin-top: 10px;
+	border-top: 1px dotted #888;
+	width: 700px;
+}
+
+.bottomline {
+    margin-top: -8px;
+    border-top: 1px dotted #888;
+    width: 700px;
+}
+
+.content {
+	width: 700px;
+	float: left;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.shot {
+    margin-top: 10px;
+}
+
+.capture {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 700px;
+}
+
+.back-link-root {
+    color: #0066FF;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.back-link-actual {
+    color: #999;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.actions {
+    margin-top: 7px;
+    font-size: 16px;
+}
+
+.aimg {
+    color: #999;
+    border-bottom: 0px dotted;
+}
+
+h1 {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #999;
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+    color: #999;
+    line-height: 20px;
+}
+
+li {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    margin-left: 30px;
+}
+
+a {
+	color: #999;
+	border-bottom: 1px dotted;
+}
+
+b {
+    color: #193;
+}

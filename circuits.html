@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+        <script type="text/javascript" src="scripts/shCore.js"></script>
+        <script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        <link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/styles.css" media="screen">
+        <title>Circuits</title>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-42693157-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <img src="images/circuits-small.png" class="shot" title="Circuits"/>
+                <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px;"><span class="back-link-root">main</span></a>:<span class="back-link-actual">circuits</span>
+                <br>
+                <br>
+                <h1>OVERVIEW</h1>
+                <div class="bottomline" />
+                <br>
+                <p><b>Circuits</b> was our last game in Digital Tentacle. It's a musical puzzle game for iOS, Windows, Mac and Linux. Music and levels have been created by <a href="https://soundcloud.com/penthagram">David García</a>, an amazing person and composer. We used Unity to develop this game.</p>
+                <br>
+                <p>This game is about music. At each level, you have music you have to copy using audio clips. You have to do different tasks like set clips position, set loop counter, etc, to build the final song.</p>
+                <br>
+                <span class='embed-youtube' style='text-align:center; display: block;'><iframe class='youtube-player' type='text/html' width='497' height='310' src='https://www.youtube.com/embed/Hkf4f7jUTQc?version=3&#038;rel=1&#038;fs=1&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;wmode=transparent' frameborder='0'></iframe></span>
+                <br>
+                <br>
+                <h1>EDITOR</h1>
+                <div class="bottomline"/>
+                <br>
+                <p>To create a level we use a custom editor inside Unity.</p>
+                <a href="images/circuits-editor.png" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/circuits-editor.png" class="capture" title="Editor"/></a>
+                <p>This way, the levels are created very quickly. To generate the playable level, it is only necessary to press the "Generate Circuit" button.</p></p>
+                <a href="images/circuits-final.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/circuits-final.jpg" class="capture" title="Game"/></a>
+                <br>
+                <br>
+                <h1>SOUND CONSIDERATIONS</h1>
+                <div class="bottomline"/>
+                <br>
+                <p>It look obvious that the most important thing in this game is music. It is mandatory that the music sounds perfect and don't be too big on disk space. So in the beginning we used MP3 as a chosen format to store the music, but MP3 has the <a href="http://en.wikipedia.org/wiki/Gapless_playback#Compression_artifacts">gapless problem</a> so we changed it to OGG. This works fine in Windows and Mac, but in iOS is not possible to use OGG on Unity, you can use only MP3 or WAV. Unity has a "gapless looping" option when it compresses WAV to MP3, but this doesn't work perfectly, you can still notice a glitch. So we looked for another solution and in the end, this is the way we did it:</p>
+                <br>
+                <li>We save all our music as an OGG file.</li>
+                <li>Rename these files to TXT. This way unity imports them as TextAssets.</li>
+                <li>We use a C++ OGG decoder as a Unity plugin. The input is an OGG file as TextAsset and the output is an array with the OGG file decompressed.</li>
+                <br>
+                <p>So we store all audio clips decompressed in memory (in a class called AudioBuffer) because we have to create the song mixing them. To create the AudioClips used by Unity we do this:</p>
+                <br>
+                <li>We create a class called ClipMixer. This class has a method <b>AddAudioBuffer( AudioBuffer _buffer, float _time )</b> that we use to compose the song.</li>
+                <li>When all AudioBuffers have been added, the AudioClip is created: <b>AudioClip.Create( "ClipMixer", mSamplesLength, SoundManager.mChannels, SoundManager.mFrequency, false, true, OnAudioRead, OnAudioSetPosition )</b> We know the length of the clip because we calculated it on AddAudioBuffer method. Channels and Frequency are constants, and OnAudioRead and OnAudioSetPosition are callbacks because the clip is created as a stream.</li>
+                <li>Every time OnAudioRead is called, we know the start position and the length required, so we calculate which AudioBuffers are involved and mix just the required parts of that AudioBuffers.</li>
+                <br>
+                <p>We use this system to compose the final song you have to copy instead of using a sound file (this way we save space on disk). Our musician use a text file to define the positions of the clips, loops, etc. The file looks like this:</p>
+
+                <pre class="brush: plain;">
+                // Syntax: Time: clip_name [ * loop_counter ] [ > clip_name_to_concatenate ]
+                .MELODY
+                [
+                    2: Cir_lev7_mel_1_02sec > Cir_lev7_mel_2
+                    14: Cir_lev7_mel_3 > Cir_lev7_mel_4 > Cir_lev7_mel_5
+                ]
+
+                .RYTHM
+                [
+                    2: Cir_lev7_arp_1_02sec * 5 > Cir_lev7_arp_2 * 5
+                ]
+                </pre>
+                <br>
+                <h1>COMPOSER</h1>
+                <div class="bottomline"/>
+                <br>
+                <p>In the latest update of the game, we included the Circuits composer. With this program, the users can create their own songs using a huge sample library (that is in continuous grown) created by Circuits composer David García and by Circuits users. The created songs and packages can be shared on Steam Workshop.</p>
+                <br>
+                <span class='embed-youtube' style='text-align:center; display: block;'><iframe class='youtube-player' type='text/html' width='497' height='310' src='https://www.youtube.com/embed/6y6Rwwk_Fo4?version=3&#038;rel=1&#038;fs=1&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;wmode=transparent' frameborder='0'></iframe></span>
+                <br>
+                <h1>COUPONS</h1>
+                <div class="bottomline" />
+                <br>
+                <p>In iOS, the game is distributed free. With the free version you can only play a few levels and the game contains ads. If you want all levels and remove the ads you have to buy the complete version of the game. You can do this inside the game as an in-game purchase. Besides, you can buy also some extra points to use different powers inside the game and a package with new audio clips to use in free gameplay mode. We have implemented a coupon system so we can create coupons (8 letters long alphanumerical string) and decide the action of that coupon. A coupon can unlock the full game, give you some extra points and/or unlock the extra audio clips package. This way, we can send coupons to magazines to review the game or to our friends and give them the full game for free.</p>
+                <br>
+                <p>We have used Python on Google Application Engine (GAE) to implement the coupons server. The way the coupon system works is like this:</p>
+                <br>
+                <li>We enter our website and create a new coupon. You have to set the game, the platform, the action and the number of uses of the coupon. After this, you have the coupon, for instance: A9XKE3LS.</li>
+                <li>When a person wants to use a coupon, they have to enter it in the game. The game composes a petition to our server, something that looks like this:
+                    <br>
+                    <b>http://url.com/usecoupon?c=A9XKE3LS&m=unique_device_id&p=platform_id&g=game_id&k=hash_key</b>
+                    <br>
+                    hash_key value is computed using some game information and a password. The server knows how to calculate this, so it compares the petition key to the generated key and if they are differents, it will ignore the petition.
+                    Besides, the server checks if the coupon exists and is valid (same game, the same platform and has not been used before).
+                </li>
+                <li>The server responds to the game with a string that contains the information about the actions of the coupon and with another different key to secure the response. The game knows how to calculate the server response key, and if they are different will show an error message in the game.</li>
+                <br>
+                <p><b>Update</b>: At the end, we decided to sell the complete game without a demo. So, although the whole coupon system was working, we didn't use it.</p>
+                <div class="line"/>
+                <br>
+                <div>
+                    <a href="javascript:javascript:history.go(-1)" class="aimg"><img src="images/back.jpg" style="vertical-align: middle;"/></a>
+                    <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px dotted;"><span style="vertical-align: middle;">Back to main page.</span></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+        <script type="text/javascript" src="scripts/shCore.js"></script>
+        <script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        <link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/styles.css" media="screen">
+        <title>Garou - Mark of the wolves</title>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-42693157-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <img src="images/garou-small.jpg" class="shot" title="Garou - Mark of the wolves"/>
+                <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px;"><span class="back-link-root">main</span></a>:<span class="back-link-actual">garou</span>
+                <br>
+                <br>
+                <h1>OVERVIEW</h1>
+                <div class="bottomline" />
+                <br>
+                <p><b>Garou - Mark of the wolves</b> was my last game as an amateur before I entered to work on Commandos. The idea was to recreate the arcade game with the same name in Windows with DirectX 6 (using an emulator to rip the graphics). In the end, just one scene and two fighters were added to the game, but the combat system and hit trees are almost complete, so adding new players must be relatively simple.</p>
+                <div align="center"><img src="images/garou1.jpg" class="shot" title="Capture 1"/></div>
+                <div align="center"><img src="images/garou2.jpg" class="shot" title="Capture 2"/></div>
+                <br>
+                <h1>FIGHTER DEFINITION</h1>
+                <div class="bottomline" />
+                <br>
+                <p>All information needed by a player is defined using configuration files. Every fighter has these files:</p>
+                <br>
+                <li>Secuences: define all fighter animation secuences. Besides typical information (image file, pivot position, etc) every frame can have information about collision zones and attack zones. These zones are any number of rectangles that define if a frame can hit the opponent o receive damage from them. And a list of FXs (dust, sparkles,...) that the frame can generate.</li>
+                <li>Hits: define all hits and special moves the fighter can do. E.g. to define a weak punch and a Hadouken we will do this:</li>
+                <pre class="brush: plain;">
+# WEAK PUNCH
+[
+    .KEYS_SECUENCE   # keys necessaries to generate the hit (could be any number of them)
+    (
+        [ .BUTTON "WEAK_PUNCH" ]  # this constant (weak_punch) is linked to a keyboard key
+    )
+    .STATES   # valid states to do this hit
+    (
+        [ .STATE "STANDING"            .ANIMATION_SECUENCE "WEAK_PUNCH"         .DAMAGE 5 ]
+        [ .STATE "STANDING"   .CLOSE 1 .ANIMATION_SECUENCE "CLOSE_WEAK_PUNCH"   .DAMAGE 7 ]   # a punch very close to other fighter and the damage is bigger.
+        [ .STATE "CROUCH"              .ANINATION_SECUENCE "CROUCH_WEAK_PUNCH"  .DAMAGE 5 ]
+        [ .STATE "JUMPING"             .ANINATION_SECUENCE "JUMPING_WEAK_PUNCH" .DAMAGE 6 ]
+    )
+]
+# HADOUKEN
+[
+  .KEYS_SECUENCE
+  (
+    [ .BUTTON "DOWN"       ]
+    [ .BUTTON "FORWARD"    ]
+    [ .BUTTON "WEAK_PUNCH" ]
+  )
+  .STATES
+  (
+    [ .STATE "STANDING"  .ANIMATION_SECUENCE "HADOUKEN" ]
+  )
+]
+                </pre>
+                <br>
+                <h1>HIT TREES</h1>
+                <div class="bottomline" />
+                <br>
+                <p>When the fight begins, besides other things, the hits file is loaded and parsed and hit trees, where the last key of the combination is the root, are built. In the example above, the tree hit looks like this:</p>
+                <pre class="brush: plain;">
+                    [ WEAK_PUNCH ] -> Weak punch hit
+                          |
+                     [ FORWARD ]
+                          |
+                      [ DOWN ] -> Hadouken
+                </pre>
+                <p>While the game is running, there is an input buffer where keys pressed are saved and the time that key has been pressed (if no key is pressed, every 100ms a no_key_id is inserted in the buffer). For example, if our input buffer is [ BACK, WEAK_KICK, DOWN, FORWARD, WEAK_PUNCH ] the steps when a key is pressed are:</p>
+                <br>
+                <li>Check if that key generates a hit or a special move, this is, that key is a root in the hit trees.</li>
+                <li>Yes, WEAK_PUNCH is a root, so we look for the hit info that the tree nodes can contain. Just press WEAK_PUNCH generates a hit, so we saved this information and look further for larger sequences.</li>
+                <li>Previous WEAK_PUNCH we founded FORWARD and is possible goes from WEAK_PUNCH to FORWARD in our tree, so we moved to it. FORWARD node hasn't hit information, so to this point, WEAK_HIT is still active.</li>
+                <li>Previous FORWARD is DOWN, so we moved to it. The DOWN node has hit information, so we saved it.</li>
+                <li>Previous DOWN is WEAK_KICK, but is not possible it goes from DOWN to WEAK_KICK, so we finish the process and return HADOUKEN found in DOWN node as a hit to do.</li>
+                <div class="line"/>
+                <br>
+                <div>
+                    <a href="javascript:javascript:history.go(-1)" class="aimg"><img src="images/back.jpg" style="vertical-align: middle;"/></a>
+                    <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px dotted;"><span style="vertical-align: middle;">Back to main page.</span></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

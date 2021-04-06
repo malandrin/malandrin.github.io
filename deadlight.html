@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/styles.css" media="screen">
+        <title>Deadlight</title>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-42693157-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <img src="images/deadlight-small.jpg" class="shot" title="Deadlight"/>
+                <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px;"><span class="back-link-root">main</span></a>:<span class="back-link-actual">deadlight</span>
+                <br>
+                <br>
+                <h1>OVERVIEW</h1>
+                <div class="bottomline" />
+                <br>
+                <p><a href="http://www.deadlightgame.com/" target="_blank"><b>Deadlight</b></a> is a 2.5D sidescroller platform game developed for Xbox 360 and PC by Tequila Works. It was developed using Unreal Engine 3. I had been working on this game as lead programmer for nearly two years and the main part of the game was developed by only two programmers, near the end, two more programmers joined the team.</p>
+                <br>
+                <span class='embed-youtube' style='text-align:center; display: block;'><iframe class='youtube-player' type='text/html' width='497' height='310' src='https://www.youtube.com/embed/W3tsKWwuBJE?version=3&#038;rel=1&#038;fs=1&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;wmode=transparent' frameborder='0'></iframe></span>
+                <br>
+                <h1>GAMEPLAY & AI</h1>
+                <div class="bottomline"/>
+                <br>
+                <p>The camera system uses volumes to determine where the player is and how the camera has to act. Every camera volume is configured with some information such as distance camera to the player, if the camera has to follow the player, if the camera has to collide with the volume borders, etc. In every volume, you can define information for any of the four sides of the volume (top, bottom, left and right) so the camera can react differently if the player enters by the right or left.</p>
+                <br>
+                <p>The AI uses a typical machine state with three kinds of senses to "feel" the world around (sight, hearing and contact).</p>
+                <br>
+                <h1>CUSTOM TOOLS</h1>
+                <div class="bottomline"/>
+                <br>
+                <p>Although we used Unreal Engine, was necessary to create custom tools for our needs, we used C# to created them. One was a simple tool to generate Unreal localization files from a Microsoft Excel file. Another tool was a one-button-build-system (see image below).</p>
+                <a href="images/lotdpacker.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/lotdpacker.jpg" class="capture" title="Packer"/></a>
+                <p>You can select individual actions by pressing the specific button or you can press the start button and do all actions one behind the other. The performed actions are:</p>
+                <br>
+                <li>Update of the project from the Subversion server.</li>
+                <li>Build Unreal Engine and scripts.</li>
+                <li>Cook all necessary data from specific maps.</li>
+                <li>Generate Xbox 360 final file.</li>
+                <li>Run some TCR tests.</li>
+                <li>Package all data required by the publisher (Xbox executable, documentation, artwork, etc) in a zip file ready to be sent.</li>
+                <div class="line"/>
+                <br>
+                <div>
+                    <a href="javascript:javascript:history.go(-1)" class="aimg"><img src="images/back.jpg" style="vertical-align: middle;"/></a>
+                    <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px dotted;"><span style="vertical-align: middle;">Back to main page.</span></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

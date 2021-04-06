@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/styles.css" media="screen">
+        <title>Fightcade</title>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-42693157-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <img src="images/fightcade-small.png" class="shot" title="Fightcade"/>
+                <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px;"><span class="back-link-root">main</span></a>:<span class="back-link-actual">fightcade</span>
+                <br>
+                <br>
+                <h1>OVERVIEW</h1>
+                <div class="bottomline" />
+                <br>
+                <p><a href="http://www.fightcade.com" target="_blank"><b>Fightcade</b></a> is a network gaming platform for retro games. It is composed of several parts:</p>
+                <br>
+                <h1>THE FRONT-END</h1>
+                <div class="bottomline" />
+                <br>
+                <p>
+                I've done all the programming of the front-end and I've used <a href="https://www.vuejs.org" target="_blank"><b>Vue.js</b></a> for it. This was my first project with Vue.js. Some time ago I read an article about Vue.js and it looked very cool to me. Just a bit later I started to collaborate in Fightcade, so I took advantage of this situation to use Vue.js in a real project, and I'm very happy with that decision because I really like it. When I started, what I basically did, was copy the interface of Discord, but after some time <a href="https://www.jorgefuentes.net/" target="_blank"><b>Jorge Fuentes</b></a> started to collaborate as a designer and he implemented most of the HTTP layout and all the CSS.
+                </p>
+                <br>
+                <p>
+                Every supported game in Fightcade has its own channel. You can search for a game based on its name, year, genre, etc.
+                <a href="images/fightcade-fe-1.png" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/fightcade-fe-1.png" class="capture" title="Fightcade channel selection"/></a>
+                A channel is a space where you can chat with other people interested in that game, challenge them or spectate other matches.
+                <a href="images/fightcade-fe-2.png" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/fightcade-fe-2.png" class="capture" title="Fightcade channel"/></a>
+                </p>
+                <h1>THE BACK-END</h1>
+                <div class="bottomline" />
+                <br>
+                <p>
+                It's done in Node.js. I did a really small part of it, basically bug fixing and adding small features. In addition to this, we have a hole punching to enable the P2P connection for peers behind firewalls or routers that use NAT.
+                </p>
+                <br>
+                <h1>THE EMULATORS</h1>
+                <div class="bottomline" />
+                <br>
+                <p>
+                When a user challenges another user, the emulator is launched and they can play together. So far, we support two emulators:
+                <br>
+                <br>
+                <a href="https://www.fbalpha.com/" target="_blank"><b>FB Alpha:</b></a> to play arcade machines and Megadrive games. We've done a lot of improvements to the base emulator. I've added different shaders for CRT effect.
+                <br>
+                <br>
+                <a href="http://www.snes9x.com/" target="_blank"><b>snes9x:</b></a> to play super Nintendo games. We have added this emulator very recently, so it doesn't have the same features that the FBA emulator. I've added GGPO support to play online P2P.
+                <a href="images/fightcade-emu.png" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/fightcade-emu.png" class="capture" title="FBA emulator"/></a>
+                </p>
+                <div class="line"/>
+                <br>
+                <div>
+                    <a href="javascript:javascript:history.go(-1)" class="aimg"><img src="images/back.jpg" style="vertical-align: middle;"/></a>
+                    <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px dotted;"><span style="vertical-align: middle;">Back to main page.</span></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

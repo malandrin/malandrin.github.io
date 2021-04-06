@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+        <script type="text/javascript" src="scripts/shCore.js"></script>
+        <script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        <link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/styles.css" media="screen">
+        <title>Amundsen</title>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-42693157-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <img src="images/amundsen-small.jpg" class="shot" title="Amundsen"/>
+                <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px;"><span class="back-link-root">main</span></a>:<span class="back-link-actual">amundsen</span>
+                <br>
+                <br>
+                <h1>OVERVIEW</h1>
+                <div class="bottomline" />
+                <br>
+                <p>Sometime after I left Pyro Studios, I was asked to program a game engine to create graphic adventures for children. The name comes from Roald Amundsen, one of the biggest adventurers of history. The idea behind the engine was to create a game editor for the users to be able to make all tasks and not need codes anything in C++.</p>
+                <br>
+                <h1>THE ENGINE</h1>
+                <div class="bottomline" />
+                <br>
+                <p>Some engine features:</p>
+                <br>
+                <li>Multiplatform. The games created with Amundsen can run in Windows, Linux and Macintosh. To do this, the engine uses <a href="http://www.libsdl.org"><b>libSDL</b></a> to manage windows tasks, window creation, window events, etc, and OpenGL as a graphic system.</li>
+                <li>Programming based on scripts. The engine uses <a href="http://www.angelcode.com/angelscript/"><b>AngelScript</b></a> as a script system. The scripts are based on events, such as OnInit, OnEnterRoom, OnUpdate, OnMouseClick, etc. For instance, a script to make the player walk when entering a room could be something like this:</li>
+                <pre class="brush: cpp;">
+                    // ---
+                    void OnEnterRoom( Room@ pPreviousRoom )
+                    {
+                      // get pointer to application interface
+                      App@    pApp     = GetApp();
+                      Entity@ pPlayer  = pApp.GetEntityByName( "player_name" );
+
+                      // hide and disable interface and show the clock cursor
+                      HideInterface( 0, false );
+                      DisableInterface();
+                      SetCursor( "clock" );
+
+                      // we move the player. Last param is to pause or not
+                      // the script until the player arrived his position
+                      pPlayer.Goto( Vector2f( x, y ), true );
+
+                      // ... Show and enable the interface ...
+                      ShowInterface( 0, false );
+                      EnableInterface();
+                      SetCursor( "hand" );
+                    }
+                </pre>
+                <li>Inside scripts, you can publish variables to create generic scripts. This is done as commentary inside the file.</li>
+                <pre class="brush: cpp;">
+                    /*
+                    <EDITOR_INFO>
+                    [
+                      .NAME "Script name"
+                      .DESC "Script description"
+                      .VARS
+                      (
+                        [
+                          .TYPE STRING
+                          .NAME "Variable name"
+                          .DESC "Variable description"
+                          .INIT_FROM "LAYERS"   // The value is selected from a combo box with the layers in the room
+                        ]
+                        [
+                          .TYPE BOOL
+                          .NAME "Variable name"
+                          .DESC "Variable description"
+                        ]
+                        // ... etc ...
+                    ]
+                    </EDITOR_INFO>
+                    */
+                </pre>
+                <li>Levels (game scenes and menus) are defined as rooms. Rooms are composed of any number of layers. Rooms can include zoom lines, so, you can define different positions and their zoom associated. Entities zoom is calculated by interpolating the zoom values of the two lines between it are. Rooms can be sectorized, this is necessary to use the pathfinder.</li>
+                <li>Layers are drawn from bottom to top. Every layer has its own properties, as name, position, size, scripts, etc. Inside layers, you can insert objects: sprites, text, images, videos, 2d primitives, areas and dummies. Every object has its own shared properties (as name, size, position, scripts, etc) and its specific properties (as an image file, a primitive type, etc).</li>
+                <br>
+                <h1>THE EDITOR</h1>
+                <div class="bottomline" />
+                <br>
+                <p>The editor only runs in Windows because it was created using <b>Win32 API</b>. In the editor, you create the game and the output is a package file that contains all information required by the game and is interpreted by the engine. In the image below we can see the editor running with a sample room loaded:</p>
+                <a href="images/editor1.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/editor1.jpg" class="capture" title="Amundsen Editor"/></a>
+                <p>Some editor features:</p>
+                <li>Create and define all rooms used in games, and for any rooms: layers, layer objects, set zoom lines, sectors to define a navigation path...</li>
+                <li>Configure scripts modifying public variables.</li>
+                <div align="center"><img src="images/configure-script.png" class="shot" title="Configure script variables"/></div>
+                <br>
+                <li>A tool to create sprites. A sprite can include any number of sequences, every sequence has a name and a flag that indicates if it is loopable. Every frame in one sequence has its own properties, as time, pivot position, alpha, subframes, event to launch, etc.</li>
+                <a href="images/spriteprop.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/spriteprop.jpg" class="capture" title="Sprite Creator"/></a>
+                <li>A tool to create fonts. Based on fonts installed in Windows, you can set the size, properties as bold, italic, antialias, border, and you can select the chars to export (supporting Unicode fonts).</li>
+                <a href="images/fonts.jpg" target="_blank" style="color: #999;border-bottom: 0px dotted;"><img src="images/fonts.jpg" class="capture" title="Font Creator"/></a>
+                <li>Strings localization. All texts in a game are reference by a string ID. In the editor, you can create these IDs and associate them with any number of language strings.</li>
+                <br>
+                <br>
+                <div class="bottomline" />
+                <p><i>Warning: Graphics used in samples are extracted from The Curse of Monkey Island game and has copyright from Lucas Arts.<i></p>
+                <div class="line"/>
+                <br>
+                <div>
+                    <a href="javascript:javascript:history.go(-1)" class="aimg"><img src="images/back.jpg" style="vertical-align: middle;"/></a>
+                    <a href="javascript:javascript:history.go(-1)" style="border-bottom: 0px dotted;"><span style="vertical-align: middle;">Back to main page.</span></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
